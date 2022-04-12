@@ -1,0 +1,58 @@
+{
+    "name": "pfinalclub/pkg-tools",
+    "description": "My awesome package",
+    "keywords": [
+        "pfinalclub",
+        "pfinal-pkg-tools"
+    ],
+    "homepage": "https://github.com/pfinalclub/pfinal-pkg-tools",
+    "license": "mit",
+    "type": "library",
+    "authors": [
+        {
+            "name": "PFinal",
+            "email": "lampxiezi@163.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/pfinalclub/pfinal-pkg-tools/issues",
+        "source": "https://github.com/pfinalclub/pfinal-pkg-tools"
+    },
+    "require": {
+        "php": "^8.0.2",
+        "illuminate/support": "^5.8|^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0|^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pfinalclub\\PkgTools\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pfinalclub\\PkgTools\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pfinalclub\\PkgTools\\PkgToolsServiceProvider"
+            ],
+            "aliases": {
+                "PkgTools": "Pfinalclub\\PkgTools\\PkgToolsFacade"
+            }
+        }
+    }
+}
