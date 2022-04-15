@@ -57,6 +57,8 @@ LOGO;
             $this->comment('扩展code 错误');
         }
         $this->listPkgInfo($pkg_group_code);
+        $install_pkg_code = $this->ask('选择需要安装的扩展 【 Code 】');
+        $this->installPkg($pkg_group_code, $install_pkg_code);
     }
 
     protected function listPkgCommands(): void
@@ -86,6 +88,32 @@ LOGO;
             ['Code', 'Pkg_title', 'PkgUrl'],
             $table_data
         );
+    }
+
+    protected function installPkg(string $pkg_group_code, string $code): void
+    {
+        $this->info('开始安装扩展===========================');
+        $base_path = base_path();
+        $this->info('当前扩展目录：' . $base_path);
+        $this->info('当前扩展组：' . $pkg_group_code);
+        $pkg_title = '';
+        foreach ($this->source_data as $val) {
+            if ($val['code'] == $pkg_group_code) {
+                foreach ($val['source'] as $v) {
+                    if ($v['code'] == $code) {
+                        $pkg_title = $v['pkg_title'] ?? '';
+                    }
+                }
+            }
+        }
+        if (!$pkg_title) {
+            $this->error('扩展组不存在');
+            return;
+        }
+        $shell_cmd = 'cd ' . $base_path . '&& composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && composer require ' . $pkg_title;
+        $this->info('执行命令：' . $shell_cmd);
+        $this->info('执行结果：');
+        $this->info(shell_exec($shell_cmd));
     }
 
 }
